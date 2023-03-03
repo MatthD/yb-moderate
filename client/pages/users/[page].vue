@@ -1,11 +1,14 @@
 <template>
   <div class="userList">
-    <NCard v-for="user in users" :title="user.username" class="userCard">
-      <template #cover>
-        <img src="https://07akioni.oss-cn-beijing.aliyuncs.com/07akioni.jpeg">
-      </template>
-      Real name: {{user.name}}
-    </NCard>
+    <a  v-for="user in users" :href="'/user/'+user.id">
+
+      <NCard :title="user.username" class="userCard">
+        <template #cover>
+          <img src="https://07akioni.oss-cn-beijing.aliyuncs.com/07akioni.jpeg">
+        </template>
+        Real name: {{user.name}}
+      </NCard>
+    </a>
   </div>
 
   <div class="paginationContainer">
@@ -40,16 +43,7 @@ watch(pageNb, (newPageNb, oldPageNumber) => {
 
     window.location.href= `/users/${pageNb.value}`
   }
-  // $fetch('/api/users/', {
-  //   params: {
-  //     page: newPageNb
-  //   }
-  // }).then(({users: newUsers})=>users.value = newUsers)
 },{immediate:true});
-
-
-// post is not the right way get should be used
-
 
 </script>
 
