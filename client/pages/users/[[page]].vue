@@ -1,13 +1,15 @@
 <template>
-  <h1>Home page</h1>
-
+  <h1>List of Users</h1>
   <div class="userList">
-    <NCard v-for="user in users" :title="user.username" class="userCard">
-      <template #cover>
-        <img src="https://07akioni.oss-cn-beijing.aliyuncs.com/07akioni.jpeg">
-      </template>
-      Real name: {{user.name}}
-    </NCard>
+    <a  v-for="user in users" :href="'/user/'+user.id">
+
+      <NCard :title="user.username" class="userCard">
+        <template #cover>
+          <img src="https://07akioni.oss-cn-beijing.aliyuncs.com/07akioni.jpeg">
+        </template>
+        Real name: {{user.name}}
+      </NCard>
+    </a>
   </div>
 
   <div class="paginationContainer">
@@ -21,7 +23,10 @@ import {
   NPagination
 } from 'naive-ui'
 
-const pageNb = ref(1);
+const {params} = useRoute();
+
+
+const pageNb = ref(params.page ??1);
 const NB_USE_PER_PAGE = 30;
 const {users: tmpInitialUsers, totalUsers} = await $fetch('/api/users', {
 
@@ -34,19 +39,19 @@ const {users: tmpInitialUsers, totalUsers} = await $fetch('/api/users', {
 const users = ref(tmpInitialUsers)
 
 // On page change update the user list
-watch(pageNb, (newPageNb) => {
-  $fetch('/api/users', {
-    params: {
-      page: newPageNb
-    }
-  }).then(({users: newUsers})=>users.value = newUsers)
-});
+watch(pageNb, (newPageNb, oldPageNumber) => {
+  if(newPageNb !== params.page){
 
-
-// post is not the right way get should be used
-
+    window.location.href= `/users/${pageNb.value}`
+  }
+},{immediate:true});
 
 </script>
+
+
+
+
+
 
 <style>
 h1 {

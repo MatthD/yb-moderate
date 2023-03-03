@@ -9,11 +9,5 @@ export default defineEventHandler(async (event) => {
   const user = await prisma.users.findUnique({where:{
     id: userId
   }})
-  const messages = await prisma.messages.findMany({where:{
-    senderId: userId,
-  }})
-  const medias = await prisma.media.findMany({where:{
-    userId: userId
-  }})
-  return {user, medias, messages}
+  await prisma.users.update({data:{isDeleted: !user?.isDeleted},where:{id: user?.id,}})
 });
