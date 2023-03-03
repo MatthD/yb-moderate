@@ -9,16 +9,28 @@
       Real name: {{user.name}}
     </NCard>
   </div>
+
+  <div class="paginationContainer">
+    <NPagination v-model:page="pageNb" :page-count="100" class="paginationBox" size="large" />
+  </div>
 </template>
 
 <script setup lang="ts">
 import {
-  NCard
+  NCard,
+  NPagination
 } from 'naive-ui'
 
-const users = await $fetch('/api/users');
+const pageNb = ref(0);
 
-console.log('In home page')
+
+// post is not the right way get should be used
+const users = await $fetch('/api/users',{
+  params:{
+    page: pageNb.value
+  }
+});
+
 </script>
 
 <style>
@@ -40,5 +52,13 @@ h1{
 }
 .n-card {
   max-width: 150px;
+}
+.paginationContainer{
+  width: 100wv;
+  display: flex;
+  justify-content: center;
+}
+.paginationBox{
+  margin: 0 auto;
 }
 </style>
