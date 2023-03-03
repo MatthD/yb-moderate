@@ -5,6 +5,20 @@ A simple POC of moderation users
 
 - Node>=16.11
 
+## Install
+- git clone
+-  `npm install && cd client && npm install`
+- In client `npx prisma generate` (if necessary)
+- In top root folder, place the `db.sqlite` file (next to `package.json`)
+- At root level run `npm run dev -- -o`
+- Go to (http://localhost:3000/users)[http://localhost:3000/users]
+
+You can play
+
+### ☹️ What is mising ?
+
+- The search to filter user by some filter type
+- The ordering of media for user
 
 ## Learned
 - Sqlite is embeded file without port
