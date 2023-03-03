@@ -1,0 +1,32 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "sqlite"
+  url      = env("DATABASE_URL")
+}
+model messages {
+  id         Int     @id @default(autoincrement())
+  receiverId Int?
+  senderId   Int?
+  content    String?
+}
+
+model users {
+  id        Int      @id @default(autoincrement())
+  isDeleted Boolean?
+  username  String?
+  country   String?
+  name      String?
+  city      String?
+  media     media[]
+}
+
+model media {
+  id     Int     @id @default(autoincrement())
+  userId Int?
+  user   users?  @relation(fields: [userId], references: [id])
+  order  Int?
+  url    String?
+}

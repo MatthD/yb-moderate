@@ -1,0 +1,25 @@
+{
+  "name": "yubo-moderate",
+  "version": "1.0.0",
+  "description": "A simple yubo crud moderation",
+  "main": "index.js",
+  "devDependencies": {
+    "prisma": "^4.11.0"
+  },
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/MatthD/yubo-moderate.git"
+  },
+  "author": "MatthD",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/MatthD/yubo-moderate/issues"
+  },
+  "homepage": "https://github.com/MatthD/yubo-moderate#readme",
+  "dependencies": {
+    "@prisma/client": "^4.11.0"
+  }
+}
