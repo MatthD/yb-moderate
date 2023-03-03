@@ -11,7 +11,7 @@
   </div>
 
   <div class="paginationContainer">
-    <NPagination v-model:page="pageNb" :page-count="100" class="paginationBox" size="large" />
+    <NPagination v-model:page="pageNb" :page-count="Math.round(totalUsers/NB_USE_PER_PAGE)-1" class="paginationBox" size="large" />
   </div>
 </template>
 
@@ -21,14 +21,17 @@ import {
   NPagination
 } from 'naive-ui'
 
-const pageNb = ref(0);
+const pageNb = ref(1);
+const NB_USE_PER_PAGE = 30;
+const {users: tmpInitialUsers, totalUsers} = await $fetch('/api/users', {
 
-//initial loading
-const users = ref(await $fetch('/api/users', {
   params: {
     page: pageNb.value
   }
-}))
+})
+
+//initial loading
+const users = ref(tmpInitialUsers)
 
 // On page change update the user list
 watch(pageNb, (newPageNb) => {
@@ -36,7 +39,7 @@ watch(pageNb, (newPageNb) => {
     params: {
       page: newPageNb
     }
-  }).then(tmpUsers=>users.value = tmpUsers)
+  }).then(({users: newUsers})=>users.value = newUsers)
 });
 
 
