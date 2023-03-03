@@ -1,7 +1,7 @@
 <template>
   <h1>Home page</h1>
 
-  <div  class="userList">
+  <div class="userList">
     <NCard v-for="user in users" :title="user.username" class="userCard">
       <template #cover>
         <img src="https://07akioni.oss-cn-beijing.aliyuncs.com/07akioni.jpeg">
@@ -23,42 +23,59 @@ import {
 
 const pageNb = ref(0);
 
-
-// post is not the right way get should be used
-const users = await $fetch('/api/users',{
-  params:{
+//initial loading
+const users = ref(await $fetch('/api/users', {
+  params: {
     page: pageNb.value
   }
+}))
+
+// On page change update the user list
+watch(pageNb, (newPageNb) => {
+  $fetch('/api/users', {
+    params: {
+      page: newPageNb
+    }
+  }).then(tmpUsers=>users.value = tmpUsers)
 });
+
+
+// post is not the right way get should be used
+
 
 </script>
 
 <style>
-h1{
+h1 {
   font-size: 32px;
-  width:100vw;
+  width: 100vw;
   height: 50px;
   display: flex;
   justify-content: center;
   align-items: center;
 }
-.userList{
+
+.userList {
   width: 75vw;
   margin-left: 25%;
   columns: 3 auto;
 }
-.userCard{
+
+.userCard {
   margin: 50px;
 }
+
 .n-card {
   max-width: 150px;
 }
-.paginationContainer{
+
+.paginationContainer {
   width: 100wv;
   display: flex;
   justify-content: center;
 }
-.paginationBox{
+
+.paginationBox {
   margin: 0 auto;
 }
 </style>
