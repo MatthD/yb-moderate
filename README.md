@@ -1,4 +1,4 @@
-# yubo-moderate
+# yb-moderate
 A simple POC of moderation users
 
 ## required
